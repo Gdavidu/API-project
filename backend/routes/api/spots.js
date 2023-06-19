@@ -16,7 +16,8 @@ router.get(
             [
                 {
                     model: Review
-                }, {
+                },
+                {
                     model:SpotImage
                 }
             ]
