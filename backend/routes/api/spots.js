@@ -36,6 +36,9 @@ router.get(
             // delete spot.Reviews
             delete spot.SpotImages
         });
+        spotArr.forEach(ele => {
+            delete ele.Reviews
+        })
         res.json(spotArr)
     })
 module.exports = router;
