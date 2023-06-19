@@ -11,7 +11,16 @@ const router = express.Router();
 router.get(
     '/',
     async (req, res) => {
-        const spots = await Spot.findAll({include: [{model: Review}, {model:SpotImage}]})
+        const spots = await Spot.findAll({
+            include:
+            [
+                {
+                    model: Review
+                }, {
+                    model:SpotImage
+                }
+            ]
+        })
         const spotArr =[];
         spots.forEach(spot => {
             spotArr.push(spot.toJSON())
@@ -24,21 +33,21 @@ router.get(
                     spot.previewImage = image.url
                 }
             });
-            let stars = 0;
-            let counter =0;
-            spot.Reviews.forEach(review=> {
-                stars+=review.stars
-                counter+=1
-            })
-            spot.avgRating = stars/counter
-            counter=0
-            stars= 0;
-            // delete spot.Reviews
+            // let stars = 0;
+            // let counter =0;
+            // spot.Reviews.forEach(review=> {
+            //     stars+=review.stars
+            //     counter+=1
+            // })
+            // spot.avgRating = stars/counter
+            // counter=0
+            // stars= 0;
+
             delete spot.SpotImages
         });
-        spotArr.forEach(ele => {
-            delete ele.Reviews
-        })
+        // spotArr.forEach(ele => {
+        //     delete ele.Reviews
+        // })
         res.json(spotArr)
     })
 module.exports = router;
