@@ -97,7 +97,7 @@ router.get('/current',
     })
 
 router.get('/:id',
-    async (req, res) => {
+    async (req, res, next) => {
         const { id } = req.params;
 
         const payload = await Spot.findOne({
@@ -116,6 +116,11 @@ router.get('/:id',
                 ]
         })
 
+        if (!payload){
+            const err = new Error("Spot couldn't be found")
+            err.status = 404
+           return next(err)
+        }
         payload.dataValues.Owner = payload.dataValues.User
         delete payload.dataValues.User
 
