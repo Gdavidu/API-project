@@ -17,7 +17,7 @@ module.exports = {
       {
         spotId: 3,
         url: "example1.png",
-        preview: false
+        preview: true
       },
       {
         spotId: 2,
