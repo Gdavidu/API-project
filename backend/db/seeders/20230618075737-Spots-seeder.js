@@ -11,15 +11,15 @@ module.exports = {
       await queryInterface.bulkInsert(options, [
         {
             "ownerId": 1,
-            "address": "123 Disney Lane",
-            "city": "San Francisco",
+            "address": "123 Donut Lane",
+            "city": "San Diego",
             "state": "California",
             "country": "United States of America",
-            "lat": 37.7645358,
-            "lng": -122.4730327,
-            "name": "App Academy",
-            "description": "Place where web developers are created",
-            "price": 123
+            "lat": 37.4957396,
+            "lng": -122.1850603,
+            "name": "LegoLand",
+            "description": "Rent the park out for a discounted price this month",
+            "price": 12773
           },
           {
             "ownerId": 2,
@@ -53,7 +53,7 @@ module.exports = {
     options.tableName = "Spots";
     const Op = Sequelize.Op;
   await queryInterface.bulkDelete(options, {
-    city: {[Op.in]: ['Las Vegas', 'San Francisco', 'San Mateo']}
+    city: {[Op.in]: ['Las Vegas', 'San Diego', 'San Mateo']}
   }, {});
   }
 };
