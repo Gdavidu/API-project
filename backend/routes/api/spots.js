@@ -33,7 +33,7 @@ router.get(
             spot.avgRating = stars/counter
             counter=0
             stars= 0;
-            delete spot.Reviews
+            // delete spot.Reviews
             delete spot.SpotImages
         });
         res.json(spotArr)
