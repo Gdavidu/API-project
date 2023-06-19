@@ -11,9 +11,9 @@ const router = express.Router();
 router.get(
     '/',
     async (req, res) => {
-        const Spots = await Spot.findAll({include: [{model: Review}, {model:SpotImage}]})
+        const spots = await Spot.findAll({include: [{model: Review}, {model:SpotImage}]})
         const spotArr =[];
-        Spots.forEach(spot => {
+        spots.forEach(spot => {
             spotArr.push(spot.toJSON())
 
         });
