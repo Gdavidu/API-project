@@ -193,8 +193,8 @@ router.post('/', validateSpot,
             where: { id: id }
         })
         // delete payload.dataValues.city
-        // console.log(payload.dataValues)
-        if (!(payload.dataValues.ownerId === user.id)) {
+        // console.log(payload)
+        if (!(payload) || !(payload.dataValues.ownerId === user.id)) {
             const err = new Error("Spot couldn't be found")
             err.status = 404
             return next(err)
@@ -205,6 +205,6 @@ router.post('/', validateSpot,
             url: image.url,
             preview: image.preview
         }
-        return res.json({returnBody})
+        return res.json(returnBody)
     })
 module.exports = router;
