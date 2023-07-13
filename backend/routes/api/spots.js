@@ -115,7 +115,6 @@ router.get('/:id',
                     }
                 ]
         })
-
         if (!payload) {
             const err = new Error("Spot couldn't be found")
             err.status = 404
@@ -182,4 +181,30 @@ router.post('/', validateSpot,
         return res.json({spot})
     })
 
+    router.post('/:id/images',
+    async (req, res, next) => {
+        const {url, preview} = req.body
+        const {id} = req.params
+        const {user} = req
+        // console.log("user:", user.id)
+        // console.log("url:", url)
+        // console.log("id:", id)
+        const payload = await Spot.findOne({
+            where: { id: id }
+        })
+        // delete payload.dataValues.city
+        // console.log(payload.dataValues)
+        if (!(payload.dataValues.ownerId === user.id)) {
+            const err = new Error("Spot couldn't be found")
+            err.status = 404
+            return next(err)
+        }
+        const image = await SpotImage.create({spotId:id, url, preview})
+        const returnBody = {
+            id: image.id,
+            url: image.url,
+            preview: image.preview
+        }
+        return res.json({returnBody})
+    })
 module.exports = router;
