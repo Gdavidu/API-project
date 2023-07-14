@@ -194,10 +194,15 @@ router.post('/:id/images', requireAuth,
         })
         // delete payload.dataValues.city
         // console.log(payload)
-        if (!(payload) || !(payload.dataValues.ownerId === user.id)) {
-            const err = new Error("Spot couldn't be found")
-            err.status = 404
-            return next(err)
+        if (!(payload)) {
+            return res.status(404).json({
+                "message": "Spot couldn't be found"
+              })
+        }
+        if (!(payload.dataValues.ownerId === user.id)){
+            return res.status(403).json({
+                "message": "Forbidden"
+              })
         }
         const image = await SpotImage.create({ spotId: id, url, preview })
         const returnBody = {
