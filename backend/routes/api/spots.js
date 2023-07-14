@@ -3,7 +3,7 @@ const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
-const { Spot, Review, SpotImage, User } = require('../../db/models');
+const { Spot, Review, SpotImage, User, ReviewImage } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
@@ -49,7 +49,7 @@ router.get(
         spotArr.forEach(ele => {
             delete ele.Reviews
         })
-        res.json({"Spots": spotArr})
+        res.json({ "Spots": spotArr })
     })
 
 router.get('/current', requireAuth,
@@ -93,7 +93,7 @@ router.get('/current', requireAuth,
         Spots.forEach(ele => {
             delete ele.Reviews
         })
-        res.json({"Spots": Spots})
+        res.json({ "Spots": Spots })
     })
 
 router.get('/:id',
@@ -173,19 +173,19 @@ const validateSpot = [
 
 router.post('/', requireAuth, validateSpot,
     async (req, res, next) => {
-        const {address, city,state,country, lat , lng, name, description,price} = req.body
-        const {user} = req
+        const { address, city, state, country, lat, lng, name, description, price } = req.body
+        const { user } = req
         // console.log(user.id)
-        const spot = await Spot.create({ownerId:user.id, address, city,state,country, lat , lng, name, description,price})
+        const spot = await Spot.create({ ownerId: user.id, address, city, state, country, lat, lng, name, description, price })
         // const
-        return res.json({spot})
+        return res.json({ spot })
     })
 
-    router.post('/:id/images', requireAuth,
+router.post('/:id/images', requireAuth,
     async (req, res, next) => {
-        const {url, preview} = req.body
-        const {id} = req.params
-        const {user} = req
+        const { url, preview } = req.body
+        const { id } = req.params
+        const { user } = req
         // console.log("user:", user.id)
         // console.log("url:", url)
         // console.log("id:", id)
@@ -199,7 +199,7 @@ router.post('/', requireAuth, validateSpot,
             err.status = 404
             return next(err)
         }
-        const image = await SpotImage.create({spotId:id, url, preview})
+        const image = await SpotImage.create({ spotId: id, url, preview })
         const returnBody = {
             id: image.id,
             url: image.url,
@@ -208,32 +208,79 @@ router.post('/', requireAuth, validateSpot,
         return res.json(returnBody)
     })
 
-    router.put('/:id', requireAuth, validateSpot, async (req,res,next) =>{
-        const {id} = req.params
-        const {user} = req
-        const {address, city, state, country, lat, lng, name, description, price} = req.body
+router.put('/:id', requireAuth, validateSpot, async (req, res, next) => {
+    const { id } = req.params
+    const { user } = req
+    const { address, city, state, country, lat, lng, name, description, price } = req.body
+    const spot = await Spot.findByPk(id)
+    if (!spot) {
+        return res.status(404).json({ "message": "Spot couldn't be found" })
+    }
+    // console.log(spot.ownerId)
+    // console.log(user.id)
+    if (spot.ownerId === user.id) {
+        await spot.update({
+            address,
+            city,
+            state,
+            country,
+            lat,
+            lng,
+            name,
+            description,
+            price
+        })
+        await spot.save()
+        return res.json(spot)
+    }
+    else {
+        return res.status(403).json({ "message": "Forbidden" })
+    }
+})
+
+router.delete('/:id', requireAuth,
+    async (req, res, next) => {
+        const { id } = req.params
+        const { user } = req
         const spot = await Spot.findByPk(id)
-        if(!spot){
-            return res.status(404).json({"message": "Spot couldn't be found"})
+        if (!spot) {
+            return res.status(404).json({ "message": "Spot couldn't be found" })
         }
-        // console.log(spot.ownerId)
-        // console.log(user.id)
-        if(spot.ownerId === user.id){
-            await spot.update({
-                address,
-                city,
-                state,
-                country,
-                lat,
-                lng,
-                name,
-                description,
-                price
+        if (spot.ownerId === user.id) {
+            await spot.destroy();
+            return res.status(200).json({
+                "message": "Successfully deleted"
             })
-            return res.json(spot)
         }
         else {
-            return res.status(403).json({"message": "Forbidden"})
+            return res.status(403).json({ "message": "Forbidden" })
         }
     })
+
+router.get(
+    '/:id/reviews',
+    async (req, res, next) => {
+        const { user } = req
+        const { id } = req.params
+        const reviews = await Review.findAll({
+            where: { spotId: id },
+            include: [
+                {
+                    model: User,
+                    attributes: ['id', 'firstName', 'lastName']
+                },
+                {
+                    model: ReviewImage,
+                    attributes: { exclude: ['reviewId','createdAt', 'updatedAt'] }
+                }
+            ]
+        })
+        if (reviews.length === 0) {
+            const err = new Error("Spot couldn't be found")
+            err.status = 404
+            return next(err)
+        }
+        return res.json(reviews)
+    })
+
 module.exports = router;
