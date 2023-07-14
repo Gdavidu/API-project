@@ -2,7 +2,7 @@ const express = require('express');
 const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
-const { setTokenCookie, restoreUser } = require('../../utils/auth');
+const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
 const { Spot, Review, SpotImage, User } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -52,7 +52,7 @@ router.get(
         res.json({"Spots": spotArr})
     })
 
-router.get('/current',
+router.get('/current', requireAuth,
     async (req, res) => {
         const { user } = req;
         // console.log(typeof user.id)
@@ -171,7 +171,7 @@ const validateSpot = [
     handleValidationErrors
 ];
 
-router.post('/', validateSpot,
+router.post('/', requireAuth, validateSpot,
     async (req, res, next) => {
         const {address, city,state,country, lat , lng, name, description,price} = req.body
         const {user} = req
@@ -181,7 +181,7 @@ router.post('/', validateSpot,
         return res.json({spot})
     })
 
-    router.post('/:id/images',
+    router.post('/:id/images', requireAuth,
     async (req, res, next) => {
         const {url, preview} = req.body
         const {id} = req.params
@@ -206,5 +206,34 @@ router.post('/', validateSpot,
             preview: image.preview
         }
         return res.json({returnBody})
+    })
+
+    router.put('/:id', requireAuth, validateSpot, async (req,res,next) =>{
+        const {id} = req.params
+        const {user} = req
+        const {address, city, state, country, lat, lng, name, description, price} = req.body
+        const spot = await Spot.findByPk(id)
+        if(!spot){
+            return res.status(404).json({"message": "Spot couldn't be found"})
+        }
+        // console.log(spot.ownerId)
+        // console.log(user.id)
+        if(spot.ownerId === user.id){
+            await spot.update({
+                address,
+                city,
+                state,
+                country,
+                lat,
+                lng,
+                name,
+                description,
+                price
+            })
+            return res.json(spot)
+        }
+        else {
+            return res.status(403).json({"message": "Forbidden"})
+        }
     })
 module.exports = router;
