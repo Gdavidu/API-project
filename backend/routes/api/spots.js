@@ -318,4 +318,5 @@ router.get(
         const newReview = await Review.create({userId:user.id, spotId:id, review, stars})
         return res.json(newReview)
     })
+
 module.exports = router;
