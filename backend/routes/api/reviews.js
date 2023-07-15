@@ -65,4 +65,53 @@ const returnObj = {
     url: newImage.url}
 return res.json(returnObj)
 })
+
+const validateReview = [
+    check('review')
+        .exists({ checkFalsy: true })
+        .withMessage("Review text is required"),
+    check('stars')
+        .exists({ checkFalsy: true })
+        .isInt({min:1, max:5})
+        .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors
+];
+
+router.put('/:id', requireAuth, validateReview, async (req, res, next) => {
+    const {id} = req.params
+    const {user} = req
+    const {review, stars} = req.body
+    const existingReview = await Review.findByPk(id)
+    if(!existingReview){
+        return res.status(404).json({
+            "message": "Review couldn't be found"
+          })
+    }
+    // console.log(existingReview.userId)
+    if(!(existingReview.userId===user.id)){
+        return res.status(403).json({ "message": "Forbidden" })
+    }
+    await existingReview.update({review,stars})
+    await existingReview.save()
+    return res.json(existingReview)
+})
+
+router.delete('/:id', requireAuth,
+    async (req, res, next) => {
+        const { id } = req.params
+        const { user } = req
+        const review = await Review.findByPk(id)
+        if (!review) {
+            return res.status(404).json({ "message": "Review couldn't be found" })
+        }
+        if (review.userId === user.id) {
+            await review.destroy();
+            return res.status(200).json({
+                "message": "Successfully deleted"
+            })
+        }
+        else {
+            return res.status(403).json({ "message": "Forbidden" })
+        }
+    })
 module.exports = router;
