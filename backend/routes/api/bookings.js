@@ -63,7 +63,7 @@ router.get(
                   })
             }
             if(!booking){
-                res.status(404).json({
+                return res.status(404).json({
                     "message": "Booking couldn't be found"
                   })
             }
