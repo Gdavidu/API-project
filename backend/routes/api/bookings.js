@@ -57,16 +57,17 @@ router.get(
             const {id} = req.params
             const {startDate, endDate} = req.body
             const booking = await Booking.findOne({where:{id:id}})
-            if(!(booking.userId ===user.id)){
-                return res.status(403).json({
-                    "message": "Forbidden"
-                  })
-            }
             if(!booking){
                 return res.status(404).json({
                     "message": "Booking couldn't be found"
                   })
             }
+            if(!(booking.userId ===user.id)){
+                return res.status(403).json({
+                    "message": "Forbidden"
+                  })
+            }
+
             const existingBooking = await Booking.findOne({
                 where:{spotId:id,
                 [Op.or]:[
@@ -94,7 +95,7 @@ router.get(
             }
             const currentDate = new Date()
             currentDate.setDate(currentDate.getDate()-1)
-            if(currentDate>=new Date(endDate)){
+            if(currentDate>=new Date(booking.endDate)){
                return res.status(403).json({
                 "message": "Past bookings can't be modified"
               })

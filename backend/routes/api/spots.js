@@ -108,10 +108,10 @@ router.get('/:id',
                         model: Review
                     },
                     {
-                        model: SpotImage
+                        model: SpotImage, attributes:['id','url','preview']
                     },
                     {
-                        model: User
+                        model: User, attributes:['id', 'firstName', 'lastName']
                     }
                 ]
         })
@@ -178,7 +178,7 @@ router.post('/', requireAuth, validateSpot,
         // console.log(user.id)
         const spot = await Spot.create({ ownerId: user.id, address, city, state, country, lat, lng, name, description, price })
         // const
-        return res.json({ spot })
+        return res.json( spot )
     })
 
 router.post('/:id/images', requireAuth,
@@ -285,7 +285,7 @@ router.get(
             err.status = 404
             return next(err)
         }
-        return res.json(reviews)
+        return res.json({"Reviews": reviews})
     })
     const validateReview = [
         check('review')
@@ -309,7 +309,7 @@ router.get(
               })
         }
         const oldReview = await Review.findOne({where: {spotId: id, userId: user.id}})
-        console.log(oldReview)
+        // console.log(oldReview)
         if(oldReview){
             return res.status(500).json({
                 "message": "User already has a review for this spot"
