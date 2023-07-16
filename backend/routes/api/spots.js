@@ -3,7 +3,7 @@ const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
-const { Spot, Review, SpotImage, User, ReviewImage } = require('../../db/models');
+const { Spot, Review, SpotImage, User, ReviewImage, Booking } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
@@ -319,4 +319,79 @@ router.get(
         return res.json(newReview)
     })
 
+    router.get(
+        '/:id/bookings', requireAuth,
+        async (req, res, next) => {
+            const {id} = req.params
+            const {user} = req
+            const spot = await Spot.findByPk(id)
+            if(!spot){
+                return res.status(404).json({
+                    "message": "Spot couldn't be found"
+                  })
+            }
+            if(spot.ownerId===user.id){
+                const bookings = await Booking.findAll({where: {spotId: id}, include:{model:User,attributes:['id','firstName', "lastName"]}})
+                return res.json({"Bookings":bookings})
+            }
+            else{
+            const unowned = await Booking.findAll({where: {spotId: id}, attributes:['spotId','startDate', 'endDate']})
+            return res.json({"Bookings":unowned })
+        }
+
+        })
+        const validateBooking = [
+            check('endDate').custom((value, { req }) => {
+                if((value) <= (req.body.startDate)) {
+                    throw new Error ("endDate cannot be on or before startDate");
+                }
+                return true;
+            }),
+            handleValidationErrors
+        ];
+        router.post(
+            '/:id/bookings', requireAuth, validateBooking,
+            async (req, res, next) => {
+                const{user} = req
+                const {id} = req.params
+                const {startDate, endDate} = req.body
+                const spot = await Spot.findByPk(id)
+
+                if(!spot){
+                    return res.status(404).json({ "message": "Spot couldn't be found" })
+                }
+                if(spot.ownerId === user.id){
+                    return res.status(403).json({ "message": "Forbidden" })
+                }
+                const booking = await Booking.findOne({
+                    where:{spotId:id,
+                    [Op.or]:[
+                        {
+                            startDate:{
+                                [Op.between]:[startDate,endDate]
+                            }
+                        },
+                        {
+                            endDate:{
+                                [Op.between]:[startDate,endDate]
+                            }
+                        }
+                    ]
+                }
+                })
+                if(booking){
+                    return res.status(403).json({
+                        "message": "Sorry, this spot is already booked for the specified dates",
+                        "errors": {
+                          "startDate": "Start date conflicts with an existing booking",
+                          "endDate": "End date conflicts with an existing booking"
+                        }
+                      })
+                }
+
+                // console.log(startDate > endDate)
+                // bookings.forEach(booking=>{
+                //     console.log(booking)
+                // })
+            })
 module.exports = router;
