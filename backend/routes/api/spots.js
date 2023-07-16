@@ -389,9 +389,8 @@ router.get(
                       })
                 }
 
-                // console.log(startDate > endDate)
-                // bookings.forEach(booking=>{
-                //     console.log(booking)
-                // })
+                const newBooking = await Booking.create({spotId:id, userId:user.id, startDate, endDate })
+                res.json(newBooking)
             })
+
 module.exports = router;
