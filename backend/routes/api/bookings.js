@@ -69,11 +69,11 @@ router.get(
             }
 
             const existingBooking = await Booking.findOne({
-                where:{spotId:id,
+                where:{spotId:booking.spotId,
                 [Op.or]:[
                     {
                         startDate:{
-                            [Op.between]:[startDate,endDate]
+                            [Op.between]:[startDate, endDate]
                         }
                     },
                     {
@@ -81,6 +81,12 @@ router.get(
                             [Op.between]:[startDate,endDate]
                         }
                     }
+                    // {
+                    //    startDate:{ [Op.eq]: booking.startDate}
+                    // },
+                    // {
+                    //     endDate:{[Op.eq]: booking.endDate}
+                    // }
                 ]
             }
             })
