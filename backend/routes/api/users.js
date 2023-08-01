@@ -43,7 +43,7 @@ router.post(
       const err = new Error("User already exists")
       err.status = 500;
       err.message = "User already exists"
-      err.errors = { email: "User with that email already exists" };
+      err.email = { email: "User with that email already exists" };
       return next(err)
     }
     const oldUsername = await User.unscoped().findOne({ where: { username: username } })
