@@ -1,0 +1,48 @@
+li{
+    list-style-type: none;
+}
+.spotsInfo{
+    display: flex;
+}
+.spotscontainer{
+    width:fit-content;
+
+}
+
+img{
+    width: 300px;
+    height:200px;
+    border-radius: 15px;
+}
+.spotname{
+    display: flex;
+    justify-content: center;
+}
+
+
+.tooltip-wrap {
+    display: inline-block;
+    margin: 80px;
+    max-width: 300px;
+    position: relative;
+    width:fit-content
+  }
+
+  .tooltip-content {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items: center;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 1s;
+
+    width: max-content;
+  }
+
+  .tooltip-wrap:hover .tooltip-content {
+    opacity: 1;
+  }

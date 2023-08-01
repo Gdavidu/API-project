@@ -5,11 +5,37 @@
 ul{
     list-style-type: none;
     padding: 0px 10px 20px 10px;
-
+    display:flex;
+    align-items: center;
+}
+li{
+    margin:10px
 }
 a {
     display: flex;
     flex-direction: column;
     justify-content: top;
     margin-bottom: 5px;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid gainsboro;
+}
+.airbnbicon{
+    margin:20px;
+    width: 60px;
+    height:60px;
+}
+.logo{
+    display: flex;
+    align-items: center;
+}
+.appname{
+    font-family:cursive;
+    font-weight:700;
+    color:#ff385c;
+    font-size:x-large;
 }
