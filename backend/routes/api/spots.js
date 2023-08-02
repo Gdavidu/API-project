@@ -42,14 +42,25 @@ const router = express.Router();
 //         .withMessage("Maximum price must be greater than or equal to 0"),
 //     handleValidationErrors
 // ];
+
+
 router.get(
     '/',
     async (req, res) => {
         let { page, size, maxLat, minLat, minLng, maxLng, minPrice, maxPrice } = req.query
         let errs = {}
         const validQueries = {}
-        page = parseInt(page);
-        size = parseInt(size);
+        const pagination = {}
+        if (page && size) {
+
+            page = parseInt(page);
+            pagination.offset = size * (page - 1)
+
+        }
+        if (size) {
+            size = parseInt(size);
+            pagination.limit = size
+        }
 
         if (Number.isNaN(page) || page < 1 || page > 10) {
             errs.page = "Page must be greater than or equal to 1"
@@ -62,19 +73,19 @@ router.get(
         if (maxLat && (maxLat < -90 || maxLat > 90)) {
             errs.maxLat = "Maximum latitude is invalid"
         }
-        else{
+        else {
             validQueries.maxLat = maxLat
         }
         if (minLat && (minLat < -90 || minLat > 90)) {
             errs.minLat = "Minimum latitude is invalid"
         }
-        else{
+        else {
             validQueries.minLat = minLat
         }
         if (minLng && (minLng < -180 || minLng > 180)) {
             errs.minLng = "Minimum longitude is invalid"
         }
-        else{
+        else {
             validQueries.minLng = minLng
         }
         if (maxLng && (maxLng < -180 || maxLng > 180)) {
@@ -83,48 +94,48 @@ router.get(
         else {
             validQueries.maxLng = maxLng
         }
-        if (maxPrice && (maxPrice<0)) {
+        if (maxPrice && (maxPrice < 0)) {
             errs.maxPrice = "Maximum price must be greater than or equal to 0"
         }
-        else{
-            validQueries.maxPrice=maxPrice
+        else {
+            validQueries.maxPrice = maxPrice
         }
-        if (minPrice && (minPrice<0)) {
+        if (minPrice && (minPrice < 0)) {
             errs.minPrice = "Minimum price must be greater than or equal to 0"
         }
-        else{
+        else {
             validQueries.minPrice = minPrice
         }
-        // console.log(minLat)
+
         if (!validQueries.maxLat) validQueries.maxLat = 9199999999
         if (!validQueries.maxLng) validQueries.maxLng = 181999999999
         if (!validQueries.maxPrice) validQueries.maxPrice = 999999999
         if (!validQueries.minLng) validQueries.minLng = -999999999
         if (!validQueries.minLat) validQueries.minLat = -9199999999
         if (!validQueries.minPrice) validQueries.minPrice = 0
-        console.log(validQueries.minLat, validQueries.maxLat)
+
         const spots = await Spot.findAll({
-            where:{
-                [Op.and]:[
-                {
-                    lat: {[Op.gte]:validQueries.minLat}
-                },
-                {
-                    lng: {[Op.gte]:validQueries.minLng}
-                },
-                {
-                    price: {[Op.gte]:validQueries.minPrice}
-                },
-                {
-                    price: {[Op.lte]:validQueries.maxPrice}
-                },
-                {
-                    lat: {[Op.lte]:validQueries.maxLat}
-                },
-                {
-                    lng: {[Op.lte]:validQueries.maxLng}
-                }
-            ]
+            where: {
+                [Op.and]: [
+                    {
+                        lat: { [Op.gte]: validQueries.minLat }
+                    },
+                    {
+                        lng: { [Op.gte]: validQueries.minLng }
+                    },
+                    {
+                        price: { [Op.gte]: validQueries.minPrice }
+                    },
+                    {
+                        price: { [Op.lte]: validQueries.maxPrice }
+                    },
+                    {
+                        lat: { [Op.lte]: validQueries.maxLat }
+                    },
+                    {
+                        lng: { [Op.lte]: validQueries.maxLng }
+                    }
+                ]
             },
             include:
                 [
@@ -135,8 +146,7 @@ router.get(
                         model: SpotImage
                     }
                 ],
-            limit: size,
-            offset: size * (page - 1)
+            ...pagination
         })
         const spotArr = [];
         spots.forEach(spot => {

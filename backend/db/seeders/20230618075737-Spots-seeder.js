@@ -44,6 +44,30 @@ module.exports = {
             "name": "Vegas Cottage",
             "description": "Small place on the strip",
             "price": 190
+          },
+          {
+            "ownerId": 4,
+            "address": "20 Jump Street",
+            "city": "Las Gatos",
+            "state": "California",
+            "country": "United States of America",
+            "lat":  95.4320598,
+            "lng": -6.12345697,
+            "name": "Socal Mansion",
+            "description": "Huge luxury place",
+            "price": 440
+          },
+          {
+            "ownerId": 5,
+            "address": "12 Alameda de las Pulgas",
+            "city": "Brooklyn",
+            "state": "New York",
+            "country": "United States of America",
+            "lat": 449.410598,
+            "lng": -12.1234567,
+            "name": "Brooklyn Apartment",
+            "description": "YEAAAAAA",
+            "price": 3
           }
     ], {});
 
@@ -53,7 +77,7 @@ module.exports = {
     options.tableName = "Spots";
     const Op = Sequelize.Op;
   await queryInterface.bulkDelete(options, {
-    city: {[Op.in]: ['Las Vegas', 'San Diego', 'San Mateo']}
+    city: {[Op.in]: ['Las Vegas', 'San Diego', 'San Mateo', 'Las Gatos', 'Brooklyn']}
   }, {});
   }
 };
