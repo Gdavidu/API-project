@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { NavLink } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import OpenModalButton from '../OpenModalButton';
@@ -40,10 +41,15 @@ function ProfileButton({ user }) {
   return (
     <>
       <button onClick={openMenu}>
-      <div style={{ color: "darkcyan", fontSize: "20px" }}>
-       <i class="fa-solid fa-user"></i>
-       </div>
+        <div style={{ color: "darkcyan", fontSize: "20px" }}>
+          <i class="fa-solid fa-user"></i>
+        </div>
       </button>
+      {user ?
+        (<li>
+          <NavLink exact to="/spots/new">Create a Spot</NavLink>
+        </li>) : null
+      }
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
@@ -69,7 +75,7 @@ function ProfileButton({ user }) {
               />
             </li>
             <li>
-            <DemoLoginButton/>
+              <DemoLoginButton />
             </li>
           </>
         )}

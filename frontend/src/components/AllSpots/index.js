@@ -4,19 +4,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpots } from '../../store/spots';
 import './AllSpots.css'
 import React from "react";
-
+import {useHistory} from 'react-router-dom'
 
 export default function GetAllSpots() {
     const spots = useSelector((state) => (state.spots ? state.spots : {}))
     const spotsArr = Object.values(spots.allSpots)
     const dispatch = useDispatch();
+    const history =useHistory()
 
     useEffect(() => {
         dispatch(fetchSpots());
     }, [dispatch]);
 
-
-    console.log('spotsArr', spotsArr)
 
     return (
         <>
@@ -28,7 +27,8 @@ export default function GetAllSpots() {
                             <div class="tooltip-content">
                                 {spot.name}
                             </div>
-                            <li key={spot.id}>
+
+                            <li key={spot.id} onClick={()=>{history.push(`/${spot.id}`)}}>
                                 <img src={spot.previewImage} alt='No Images Found' />
                                 <div className='spotinfo'>
                                     <div className='stars'>
