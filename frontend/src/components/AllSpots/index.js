@@ -32,16 +32,9 @@ export default function GetAllSpots() {
                                 <img src={spot.previewImage} alt='No Images Found' />
                                 <div className='spotinfo'>
                                     <div className='stars'>
-
                                         {spot.avgRating ? <><div className='rating'>{spot.avgRating}</div>
                                             <div className='icon'><i class="fa-solid fa-star fa-xs" style={{ color: 'black' }}></i>
                                             </div></> : <div>New!</div>}
-                                        {/* <div className='rating'></div>
-                                    {spot.avgRating ? spot.avgRating :
-                                        spot.avgRating
-                                            (<div className='icon'>
-                                                <i class="fa-solid fa-star fa-xs" style={{ color: 'black' }}></i>
-                                            </div>)} */}
                                     </div>
                                     <div className='location'>
                                         {spot.city}, {spot.state}

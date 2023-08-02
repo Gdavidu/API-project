@@ -18,7 +18,10 @@ img{
     display: flex;
     justify-content: center;
 }
-
+.stars{
+    display:flex;
+    justify-content: right;
+}
 
 .tooltip-wrap {
     display: inline-block;
