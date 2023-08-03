@@ -24,14 +24,14 @@ export default function GetSpotDetails() {
         <>
         <h1>{spot.name}</h1>
         <h3>{spot.city},{spot.state},{spot.country}</h3>
-        <img className='imageOne' src={spot.SpotImages[0]? spot.SpotImages[0].url : notFound} alt='Not Found' />
+        <img className='imageOne' src={(spot.SpotImages && spot.SpotImages[0])? spot.SpotImages[0].url : notFound} alt='Not Found' />
         <div className='smallImgContainer'>
-        <img className='imageTwo' src={spot.SpotImages[1]? spot.SpotImages[1].url : notFound} alt='Not found'/>
-        <img className='imageThree' src={spot.SpotImages[2]? spot.SpotImages[2].url : notFound} alt='Not found'/>
-        <img className='imageFour' src={spot.SpotImages[3]? spot.SpotImages[3].url : notFound} alt='Not found'/>
-        <img className='imageFive' src={spot.SpotImages[4]? spot.SpotImages[4].url : notFound} alt='Not found'/>
+        <img className='imageTwo' src={(spot.SpotImages && spot.SpotImages[1])? spot.SpotImages[1].url : notFound} alt='Not found'/>
+        <img className='imageThree' src={(spot.SpotImages && spot.SpotImages[2])? spot.SpotImages[2].url : notFound} alt='Not found'/>
+        <img className='imageFour' src={(spot.SpotImages && spot.SpotImages[3])? spot.SpotImages[3].url : notFound} alt='Not found'/>
+        <img className='imageFive' src={(spot.SpotImages && spot.SpotImages[4])? spot.SpotImages[4].url : notFound} alt='Not found'/>
         </div>
-        <h5>Hosted by {spot.Owner.firstName? spot.Owner.firstName: null}, {spot.Owner.lastName?spot.Owner.lastName: null}</h5>
+        <h5>Hosted by {spot.Owner? spot.Owner.firstName: null}, {spot.Owner?spot.Owner.lastName: null}</h5>
         <p>{spot.description}</p>
         <div className='calloutBox'>
             <div className='pricing'>{spot.price} night</div>

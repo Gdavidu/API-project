@@ -41,14 +41,14 @@ function ProfileButton({ user }) {
   return (
     <>
       <button onClick={openMenu}>
-        <div style={{ color: "darkcyan", fontSize: "20px" }}>
-          <i class="fa-solid fa-user"></i>
+        <div style={{ color: "#ff385c", fontSize: "20px" }}>
+          <i className="fa-solid fa-user"></i>
         </div>
       </button>
       {user ?
-        (<li>
+        (<div>
           <NavLink exact to="/spots/new">Create a Spot</NavLink>
-        </li>) : null
+        </div>) : null
       }
       <ul className={ulClassName} ref={ulRef}>
         {user ? (

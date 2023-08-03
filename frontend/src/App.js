@@ -13,6 +13,9 @@ function App() {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
+  // const spot = {
+
+  // }
   return (
     <>
       <Navigation isLoaded={isLoaded} />

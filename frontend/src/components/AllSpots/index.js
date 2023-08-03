@@ -22,9 +22,9 @@ export default function GetAllSpots() {
 
             {spotsArr.map((spot) => {
                 return (
-                    <div class="tooltip-wrap">
+                    <div className="tooltip-wrap">
                         <div className="spotscontainer">
-                            <div class="tooltip-content">
+                            <div className="tooltip-content">
                                 {spot.name}
                             </div>
 
@@ -33,7 +33,7 @@ export default function GetAllSpots() {
                                 <div className='spotinfo'>
                                     <div className='stars'>
                                         {spot.avgRating ? <><div className='rating'>{spot.avgRating}</div>
-                                            <div className='icon'><i class="fa-solid fa-star fa-xs" style={{ color: 'black' }}></i>
+                                            <div className='icon'><i className="fa-solid fa-star fa-xs" style={{ color: 'black' }}></i>
                                             </div></> : <div>New!</div>}
                                     </div>
                                     <div className='location'>
