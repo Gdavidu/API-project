@@ -187,7 +187,7 @@ export default function SpotForm() {
                         onChange={(e) => setUrl5(e.target.value)}
                     ></input>
                 </label>
-                <button>Create Spot</button>
+                <button disabled={!name.country}>Create Spot</button>
             </form>
         </>
     )
