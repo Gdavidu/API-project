@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpotDetail } from '../../store/spots';
+import { useDispatch, useSelector } from 'react-redux';
 import {useParams} from 'react-router-dom'
 const notFound = "https://t4.ftcdn.net/jpg/05/17/53/57/240_F_517535712_q7f9QC9X6TQxWi6xYZZbMmw5cnLMr279.jpg"
 export default function GetSpotDetails() {

@@ -1,57 +1,63 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { createSpot } from '../../store/spots';
-import './SpotForm.css'
+import { useHistory, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchSpotDetail, updateSpot } from '../../store/spots';
 
-export default function SpotForm() {
-    const [country, setCountry] = useState("");
-    const [address, setAddress] = useState("");
-    const [city, setCity] = useState("");
-    const [state, setState] = useState("");
-    // const [lat, setLat] = useState('')
-    // const [lng, setLng] = useState("")
-    const [description, setDescription] = useState("");
-    const [name, setName] = useState("");
-    const [price, setPrice] = useState("");
-    const [url1, setUrl1] = useState("");
-    const [url2, setUrl2] = useState("");
-    const [url3, setUrl3] = useState("");
-    const [url4, setUrl4] = useState("");
-    const [url5, setUrl5] = useState("");
+export default function UpdateSpotForm() {
+    const spot = useSelector((state) => (state.spots ? state.spots.singleSpot : {}))
+    const [country, setCountry] = useState(spot.country ? spot.country : '');
+    const [address, setAddress] = useState(spot.address ? spot.address : '');
+    const [city, setCity] = useState(spot.city ? spot.city : '');
+    const [state, setState] = useState(spot.state ? spot.state : '');
+    const [lat, setLat] = useState(spot.lat ? spot.lat : '')
+    const [lng, setLng] = useState(spot.lng ? spot.lng : '')
+    const [description, setDescription] = useState(spot.description ? spot.description : '');
+    const [name, setName] = useState(spot.name ? spot.name : '');
+    const [price, setPrice] = useState(spot.price ? spot.price : '');
     const [errors, setErrors] = useState({});
+    const { id } = useParams()
     const dispatch = useDispatch()
     const history = useHistory()
-    const lat = 15;
-    const lng = 14;
+
+    // localStorage.setItem("country", country)
+    // localStorage.setItem("country", country)
+    // localStorage.setItem("country", country)
+    // localStorage.setItem("country", country)
+    useEffect(() => {
+        dispatch(fetchSpotDetail(id));
+    }, [dispatch, id]);
+    // useEffect(() => {
+    //     setCountry(localStorage.getItem("country"))
+    // }, []);
     const handleOnSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
 
-        if(description.length<30){
-            return setErrors({description: "Description needs a minimum of 30 characters"})
-        }
-        if(!url1){
-            return setErrors({previewImage: "Preview image is required"})
-        }
-        const spot = { country, address, city, state, description, lat, lng, name, price }
-        const images = [url1, url2, url3, url4, url5]
-
-        const newSpot = await dispatch(createSpot(spot,images));
-        // console.log('spot created', newSpot)
-        if (newSpot.errors) {
-            setErrors(newSpot.errors);
-        }
-        else{
-            history.push(`/${newSpot.id}`)
+        if (description.length < 30) {
+            return setErrors({ description: "Description needs a minimum of 30 characters" })
         }
 
+        const editedSpot = { ...spot, country, address, city, state, description, lat, lng, name, price }
+        console.log('editedSpot', editedSpot)
+
+
+        const sentSpot = await dispatch(updateSpot(editedSpot))
+        if (sentSpot.errors) {
+            setErrors(sentSpot.errors);
+        } else {
+            history.push(`/${sentSpot.id}`);
+        }
+
+        // console.log('spotdetails from fewtchSpotDetail', spot)
     }
-    // console.log(spot)
+    if (!(Object.values(spot).length > 0)) {
+        return null
+    }
     return (
         <>
             <form onSubmit={handleOnSubmit}>
-                <h1>Create a New Spot</h1>
+                <h1>Update Your Spot</h1>
                 <h3>{"Where's your place located?"}</h3>
                 <h4>Guests will only get your exact address once they booked a
                     reservation.
@@ -61,7 +67,8 @@ export default function SpotForm() {
                         type="text"
                         placeholder='Country'
                         value={country}
-                        onChange={(e) => setCountry(e.target.value)}
+                        onChange={(e) => {setCountry(e.target.value)
+                            }}
                     ></input>
                     {errors.country && <div className='errors'>{errors.country}</div>}
                 </label>
@@ -92,26 +99,26 @@ export default function SpotForm() {
                     ></input>
                 </label>
                 {errors.state && <div className='errors'>{errors.state}</div>}
-                {/* <label>
+                <label>
                     Latitude
                     <input
-                    type="text"
-                    placeholder='Latitude'
-                    value={lat}
-                    onChange={(e) => setLat(e.target.value)}
+                        type="text"
+                        placeholder='Latitude'
+                        value={lat}
+                        onChange={(e) => setLat(e.target.value)}
                     ></input>
-                    </label>
-
-                    <label>
+                </label>
+                {errors.lat && <div className='errors'>{errors.lat}</div>}
+                <label>
                     Longitude
                     <input
-                    type="text"
-                    placeholder='Longitude'
-                    value={lng}
-                    onChange={(e) => setLng(e.target.value)}
+                        type="text"
+                        placeholder='Longitude'
+                        value={lng}
+                        onChange={(e) => setLng(e.target.value)}
                     ></input>
-                    </label> */}
-
+                </label>
+                {errors.lng && <div className='errors'>{errors.lng}</div>}
                 <h3>Describe your place to guests</h3>
                 <label>Mention the best features of your space, any special amentities like
                     fast wifi or parking, and what you love about the neighborhood.
@@ -145,49 +152,7 @@ export default function SpotForm() {
                     ></input>
                 </label>
                 {errors.price && <div className='errors'>{errors.price}</div>}
-                <h3>Liven up your spot with photos</h3>
-                <label>Submit a link to at least one photo to publish your spot.
-                    <input
-                        type="url"
-                        placeholder='Preview Image URL'
-                        value={url1}
-                        onChange={(e) => setUrl1(e.target.value)}
-                    ></input>
-                </label>
-                {errors.previewImage && <div className='errors'>{errors.previewImage}</div>}
-                <label>
-                    <input
-                        type="url"
-                        placeholder='Preview Image URL'
-                        value={url2}
-                        onChange={(e) => setUrl2(e.target.value)}
-                    ></input>
-                    </label>
-                    <label>
-                    <input
-                        type="url"
-                        placeholder='Preview Image URL'
-                        value={url3}
-                        onChange={(e) => setUrl3(e.target.value)}
-                    ></input>
-                    </label>
-                    <label>
-                    <input
-                        type="url"
-                        placeholder='Preview Image URL'
-                        value={url4}
-                        onChange={(e) => setUrl4(e.target.value)}
-                    ></input>
-                    </label>
-                    <label>
-                    <input
-                        type="url"
-                        placeholder='Preview Image URL'
-                        value={url5}
-                        onChange={(e) => setUrl5(e.target.value)}
-                    ></input>
-                </label>
-                <button disabled={!country.length}>Create Spot</button>
+                <button>Update your Spot</button>
             </form>
         </>
     )
