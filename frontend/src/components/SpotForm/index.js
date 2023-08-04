@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { createSpot } from '../../store/spots';
+import { createSpot, fetchSpotDetail } from '../../store/spots';
 import './SpotForm.css'
 
 export default function SpotForm() {
@@ -43,6 +43,7 @@ export default function SpotForm() {
             setErrors(newSpot.errors);
         }
         else{
+            await dispatch(fetchSpotDetail(newSpot.id))
             history.push(`/${newSpot.id}`)
         }
 

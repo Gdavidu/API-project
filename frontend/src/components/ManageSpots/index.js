@@ -15,7 +15,7 @@ export default function GetCurrentSpots() {
 
     useEffect(() => {
         dispatch(fetchCurrentSpots());
-    }, [dispatch,spotsArr]);
+    }, [dispatch]);
 
     return (
         <>
