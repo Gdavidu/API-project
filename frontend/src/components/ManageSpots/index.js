@@ -12,10 +12,10 @@ export default function GetCurrentSpots() {
     const dispatch = useDispatch();
     const history = useHistory()
 
-   
+
     useEffect(() => {
         dispatch(fetchCurrentSpots());
-    }, [dispatch]);
+    }, [dispatch,spotsArr]);
 
     return (
         <>

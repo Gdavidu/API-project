@@ -11,7 +11,6 @@ function DeleteSpotModal({spot}){
     const handleDelete = (e) => {
         e.preventDefault();
         dispatch(deleteSpot(spot.id));
-        window.location.reload(false)
       };
     return(
         <>

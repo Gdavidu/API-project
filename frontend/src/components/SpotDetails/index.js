@@ -7,6 +7,7 @@ export default function GetSpotDetails() {
     const {id} = useParams()
     const spot = useSelector((state)=> (state.spots ? state.spots.singleSpot : {}))
     const dispatch = useDispatch();
+    const imagesArr = spot.SpotImages
 
     // const spotOwner = useSelector((state)=>(state.spots? state.spots.Owner : {}))
     // console.log('spotOwner',spotOwner)
@@ -14,7 +15,7 @@ export default function GetSpotDetails() {
     // console.log('id:', id, 'spotDetails:', spot, 'spotImages', spotImageArr, 'Owner:', spot.Owner)
     useEffect(() => {
         dispatch(fetchSpotDetail(id));
-    }, [dispatch, id]);
+    }, [dispatch, id, imagesArr]);
 
     if(!(Object.values(spot).length > 0)){
         return null
