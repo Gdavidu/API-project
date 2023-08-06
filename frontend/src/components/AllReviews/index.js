@@ -1,21 +1,26 @@
 import { fetchSpotReviews } from "../../store/reviews";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
-export default function GetAllSpotReviews({ id }) {
+export default function GetAllSpotReviews({ spotId, reviewCount }) {
+
     const reviews = useSelector((state) => (state.reviews ? state.reviews : {}))
-    let reviewsArr = Object.values(reviews.spot)
+    const reviewsArr = Object.values(reviews.spot)
+    reviewsArr.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     const dispatch = useDispatch();
-    console.log('id from review component', typeof id)
-    console.log('reviewsArr from reviews before sort', reviewsArr)
+    // console.log('id from review component',  spotId)
+    // console.log('reviewsArr', reviewsArr)
+    // console.log(reviewCount)
     // console.log('typeof spotId', typeof reviewsArr[0].spotId)
+    const sessionUser = useSelector(state => state.session.user)
+    const owner = useSelector(state => state.spots.singleSpot.ownerId)
     useEffect(() => {
-        dispatch(fetchSpotReviews(id));
-    }, [dispatch, id]);
+        dispatch(fetchSpotReviews(spotId));
+    }, [dispatch, spotId]);
 
-    if (!(reviewsArr.length> 0)) {
-        return null
-    }
+
+    // console.log(owner)
 
     // const testDate = new Date('2023-08-01T23:59:46.000Z')
     // console.log('Month', testDate.toDateString())
@@ -29,16 +34,29 @@ export default function GetAllSpotReviews({ id }) {
         const year = newDate.getFullYear()
         return monthNames[month]+ " "+ year
     }
-    const sortedReviews = reviewsArr.sort((a, b) => a.createdAt - b.createdAt)
-    console.log('sorted?', sortedReviews)
+
+    // console.log('sorted?', reviewsArr)
+
+    console.log('sessionUser', sessionUser)
+    if(sessionUser && !(owner===sessionUser.id) && (reviewCount === 0)){
+        return (
+            <div>Be the first to post a review!</div>
+        )
+    }
     return (
         <>
         {reviewsArr.map((review)=>{
 
-            if(!(review.spotId.toString() === id)){
+            // if(!(review.spotId.toString() === spotId)){
+            //     return null
+            // }
+
+            if(reviewCount === 0){
                 return null
             }
-
+            // if (!(reviewsArr.length> 0)) {
+            //     return null
+            // }
             return(
             <div key={review.id} className="reviewContainer">
                 <div className="reviewHeader">
@@ -49,7 +67,9 @@ export default function GetAllSpotReviews({ id }) {
                         }
                     </div>
                 </div>
-
+                <div className="reviewText">
+                    {review.review}
+                </div>
             </div>
             )
 

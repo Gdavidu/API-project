@@ -3,6 +3,7 @@ import { fetchSpotDetail } from '../../store/spots';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
 import GetAllSpotReviews from '../AllReviews';
+import PostReview from '../PostReview';
 const notFound = "https://t4.ftcdn.net/jpg/05/17/53/57/240_F_517535712_q7f9QC9X6TQxWi6xYZZbMmw5cnLMr279.jpg"
 export default function GetSpotDetails() {
     const { id } = useParams()
@@ -38,23 +39,34 @@ export default function GetSpotDetails() {
             <p>{spot.description}</p>
             <div className='calloutBox'>
                 <div className='pricing'>{spot.price} night</div>
-                {spot.avgRating?
-                <>
-            <div>{spot.avgRating} <i className="fa-solid fa-star fa-xs" style={{ color: 'black' }}></i></div>
-            <div className='dot'> · </div> </>: <><i className="fa-solid fa-star fa-xs" style={{ color: 'black' }}> New</i></>
+                {spot.avgRating ?
+                    <>
+                        <div>{spot.avgRating} <i className="fa-solid fa-star fa-xs" style={{ color: 'black' }}></i></div>
+                    </> : <><i className="fa-solid fa-star fa-xs" style={{ color: 'black' }}> New</i></>
                 }
-                <div className='reviewCount'>{spot.numReviews} {spot.numReviews ===1? "review" : "reviews"}</div>
+                {spot.numReviews > 0 ?
+                    <>
+                        <div className='dot'> · </div>
+                        <div className='reviewCount'>{spot.numReviews} {spot.numReviews === 1 ? "review" : "reviews"}</div>
+                    </> : null
+                }
                 <button onClick={() => { alert('Feature Coming Soon'); }}>Reserve</button>
             </div>
             <div className='reviewDetails'>
-                {spot.avgRating?
-                <>
-            <div>{spot.avgRating} <i className="fa-solid fa-star fa-xs" style={{ color: 'black' }}></i></div>
-            <div className='dot'> · </div> </>: <><i className="fa-solid fa-star fa-xs" style={{ color: 'black' }}> New</i></>
+                {spot.avgRating ?
+                    <>
+                        <div>{spot.avgRating} <i className="fa-solid fa-star fa-xs" style={{ color: 'black' }}></i></div>
+                    </> : <><i className="fa-solid fa-star fa-xs" style={{ color: 'black' }}> New</i></>
                 }
-                <div className='reviewCount'>{spot.numReviews} {spot.numReviews ===1? "review" : "reviews"}</div>
+                {spot.numReviews > 0 ?
+                    <>
+                        <div className='dot'> · </div>
+                        <div className='reviewCount'>{spot.numReviews} {spot.numReviews === 1 ? "review" : "reviews"}</div>
+                    </> : null
+                }
             </div>
-            <GetAllSpotReviews id={id} />
+            <PostReview reviewCount={spot.numReviews}/>
+            <GetAllSpotReviews spotId={id} reviewCount={spot.numReviews}/>
 
         </>
     )
