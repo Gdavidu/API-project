@@ -11,47 +11,47 @@ module.exports = {
     await queryInterface.bulkInsert(options, [
       {
         spotId: 1,
-        url: "https://res.cloudinary.com/ddsopojwd/image/upload/v1691379734/9c689aaa-2364-4f1f-ae9c-d56bda466912_oinjdi.jpg",
+        url: "https://ibb.co/pKq6kJn",
         preview: true
       },
       {
         spotId: 1,
-        url: "https://res.cloudinary.com/ddsopojwd/image/upload/v1691379793/9e6c2409-c192-4e1f-9c05-be4eb486051c_j9bppw.jpg",
+        url: "https://ibb.co/DWW3RQn",
         preview: true
       },
       {
         spotId: 1,
-        url: "https://res.cloudinary.com/ddsopojwd/image/upload/v1691379929/c6c5f145-42e4-48ba-aaaf-c1a15cd68ae4_rig0l2.jpg",
+        url: "https://ibb.co/DWW3RQn",
         preview: true
       },
       {
         spotId: 1,
-        url: "https://res.cloudinary.com/ddsopojwd/image/upload/v1691379938/c3f393c2-d133-4bfb-b435-550fa558f67e_vtlbfe.jpg",
+        url: "https://ibb.co/DWW3RQn",
         preview: true
       },
       {
         spotId: 1,
-        url: "https://res.cloudinary.com/ddsopojwd/image/upload/v1691379956/0a8643e3-a2b3-41c8-bca9-9b7e8a00c9f5_whnj8h.jpg",
+        url: "https://ibb.co/DWW3RQn",
         preview: true
       },
       {
         spotId: 3,
-        url: "https://asset.cloudinary.com/ddsopojwd/fea2fe443c6a54a4afa81355e5990497",
+        url: "https://ibb.co/rtnS1Gy",
         preview: true
       },
       {
         spotId: 2,
-        url: "https://res.cloudinary.com/ddsopojwd/image/upload/v1691379763/27-McDonalds-Day-1200x834_fgchg8.webp",
+        url: "https://ibb.co/Y8vTDdX",
         preview: true
       },
       {
         spotId: 4,
-        url: "https://res.cloudinary.com/ddsopojwd/image/upload/v1691380026/cacae8df-0efb-4227-ab1a-ccd2f16862a4_rhkib3.jpg",
+        url: "https://ibb.co/xzCSVBw",
         preview: true
       },
       {
         spotId: 5,
-        url: "https://res.cloudinary.com/ddsopojwd/image/upload/v1691380033/a80f49af-afe6-4a48-9356-7ab150869a37_r3rnmc.jpg",
+        url: "https://ibb.co/BNqdVZ7",
         preview: true
       }
 
