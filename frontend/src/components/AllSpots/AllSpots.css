@@ -1,22 +1,36 @@
 li{
     list-style-type: none;
 }
-.spotsInfo{
-    display: flex;
+.spotinfo{
+    width: auto;
 }
 .spotscontainer{
-    width:fit-content;
+    width: auto;
+    display: inline-block;
+    text-align: left;
+
 
 }
 
+.topBar{
+    display:flex;
+    justify-content: space-between;
+
+}
 img{
-    width: 300px;
-    height:200px;
+    width: 400px;
+    height:290px;
     border-radius: 15px;
 }
 .spotname{
     display: flex;
     justify-content: center;
+}
+.spotClickable{
+    width:400px;
+}
+.spotClickable:hover{
+    cursor: pointer;
 }
 .stars{
     display:flex;
@@ -25,9 +39,10 @@ img{
 
 .tooltip-wrap {
     display: inline-block;
-    margin: 80px;
+    margin: 15px 80px;
     max-width: 300px;
     position: relative;
+
     width:fit-content
   }
 

@@ -277,7 +277,7 @@ router.get('/:id',
 
             payload.dataValues.avgRating = (stars / counter).toFixed(1)
         }
-    
+
         payload.dataValues.numReviews = counter
         counter = 0
         stars = 0;
@@ -306,8 +306,10 @@ const validateSpot = [
         .exists({ checkFalsy: true })
         .isNumeric()
         .withMessage("Longitude is not valid"),
-    check('name')
+        check('name')
         .exists({ checkFalsy: true })
+        .withMessage("Name is required"),
+    check('name')
         .isLength({ max: 49 })
         .withMessage("Name must be less than 50 characters"),
     check('description')

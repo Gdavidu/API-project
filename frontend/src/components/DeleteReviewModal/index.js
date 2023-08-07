@@ -16,8 +16,8 @@ function DeleteReviewModal({ review }) {
         <>
             <title>Confirm Delete</title>
             <h4>Are you sure you want to delete this review?</h4>
-            <button onClick={handleDelete}>Yes (Delete Review)</button>
-            <button onClick={closeModal}>No (Keep Review)</button>
+            <button className='LastButtons' onClick={handleDelete}>Yes (Delete Review)</button>
+            <button className='LastButtons' id='greyedBtn' onClick={closeModal}>No (Keep Review)</button>
         </>
     )
 

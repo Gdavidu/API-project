@@ -1,8 +1,9 @@
 #stars {
-    background-color: transparent;
+    background-color: transparent ;
     border: none;
     outline: none;
     cursor: pointer;
+    box-shadow: none;
   }
   .on {
     color: #000;
@@ -10,3 +11,35 @@
   .off {
     color: #ccc;
   }
+.star{
+  font-size: large;
+}
+
+#reviewFormInput{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+.reviewRting{
+  display: flex;
+  align-items: center;
+}
+.starReview{
+  margin-left:15px;
+}
+#reviewComments{
+  padding: 3px;
+}
+.dualBtns{
+  margin-left: 10px;
+  display: flex;
+  justify-content: left;
+  gap: 30px;
+}
+.spotinfo{
+  margin-left: 5px;
+}
+.manageTopRow{
+  display: flex;
+  justify-content: space-between;
+}

@@ -37,19 +37,20 @@ function ReviewFormModal() {
     }
     return (
         <>
-            <div>
+            <div id='reviewFormInput'>
                 <h1>How was your stay?</h1>
                 {errors.message && <div className='errors'>{errors.message}</div>}
                 {errors.stars && <div className='errors'>{errors.stars}</div>}
                 {errors.review && <div className='errors'>{errors.review}</div>}
                 <input
+                id='reviewComments'
                 type='text'
                 placeholder="Leave your review here..."
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 ></input>
             </div>
-            <div className='rating'>
+            <div className='reviewRting'>
                 {[...Array(5)].map((star, index) => {
                     index += 1;
                     return (
@@ -64,7 +65,7 @@ function ReviewFormModal() {
                         </button>
                     );
                 })}
-                <div>Stars</div>
+                <div className='starReview'>Stars</div>
             </div>
             <button disabled={comment.length<10 || rating===0} onClick={handleSubmit}>Submit Your Review</button>
         </>

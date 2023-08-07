@@ -1,0 +1,17 @@
+.reviewContainer{
+    margin: 25px 0px;
+}
+
+.reviewHeader{
+    font-size: 18.72px;
+}
+.reviewDate{
+    color:rgb(157, 166, 166);
+    font-weight: 500;
+    font-size: 16px;
+}
+.reviewText{
+    font-weight: 500;
+    inline-size: 930px;
+    overflow-wrap: break-word;
+}

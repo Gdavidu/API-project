@@ -32,21 +32,23 @@ export default function GetCurrentSpots() {
                             <li key={spot.id} onClick={()=>{history.push(`/${spot.id}`)}}>
                                 <img src={spot.previewImage} alt='No Images Found' />
                                 <div className='spotinfo'>
+                                    <div className='manageTopRow'>
+                                    <div className='location'>
+                                        {spot.city}, {spot.state}
+                                    </div>
                                     <div className='stars'>
                                         {spot.avgRating ? <><div className='rating'>{spot.avgRating}</div>
                                             <div className='icon'><i className="fa-solid fa-star fa-xs" style={{ color: 'black' }}></i>
                                             </div></> : <div>New!</div>}
                                     </div>
-                                    <div className='location'>
-                                        {spot.city}, {spot.state}
                                     </div>
                                     <div className='price'>
                                         ${spot.price} night
                                     </div>
                                 </div>
                             </li>
+                                <div className='dualBtns'>
                                 <button onClick={()=>{history.push(`/spots/update/${spot.id}`)}}>Update</button>
-                                <div className='deleteModal'>
                                 <OpenModalButton
                                         buttonText="Delete"
                                         modalComponent={<DeleteSpotModal spot={spot}/>}

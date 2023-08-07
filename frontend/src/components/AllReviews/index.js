@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import DeleteReviewModal from "../DeleteReviewModal";
 import OpenModalButton from '../OpenModalButton';
+import './AllReviews.css'
 export default function GetAllSpotReviews({ spotId, reviewCount }) {
 
     const reviews = useSelector((state) => (state.reviews ? state.reviews : {}))

@@ -22,8 +22,8 @@ function DeleteSpotModal({spot}){
         <>
             <h1>Confirm Delete</h1>
             <h4>Are you sure you want to remove this spot?</h4>
-            <button onClick={handleDelete}>Yes (Delete Spot)</button>
-            <button onClick={closeModal}>No (Keep Spot)</button>
+            <button className='LastButtons' onClick={handleDelete}>Yes (Delete Spot)</button>
+            <button className='LastButtons' id='greyedBtn' onClick={closeModal}>No (Keep Spot)</button>
         </>
     )
 }

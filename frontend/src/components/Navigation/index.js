@@ -11,8 +11,8 @@ function Navigation({ isLoaded }, {user}) {
     <>
       <nav>
         <div className='logo' onClick={()=>{history.push('/')}}>
-          <img className='airbnbicon' src='https://cdn.icon-icons.com/icons2/2108/PNG/512/airbnb_icon_131000.png' alt='icon supposed to load'/>
-          <div className='appname'>Airbnb</div>
+          <img className='airbnbicon' src='https://res.cloudinary.com/ddsopojwd/image/upload/v1691380427/2111320_bnbtux.png' alt='icon supposed to load'/>
+          <div className='appname'>Getaways</div>
         </div>
         <ul>
           {isLoaded && (

@@ -19,26 +19,29 @@ export default function GetAllSpots() {
 
     return (
         <>
-
+<div className='page'>
+<div  className="spotscontainer">
             {spotsArr.map((spot) => {
                 return (
+
                     <div key={spot.id} className="tooltip-wrap">
-                    <div className="spotscontainer">
                         <div className="tooltip-content">
                                 {spot.name}
                         </div>
-                        <div onClick={() => {
+                        <div  className='spotClickable' onClick={() => {
                             history.push(`/${spot.id}`)
                             }}>
                             <img src={spot.previewImage} alt='No Images Found' />
                             <div className='spotinfo'>
+                                <div className='topBar'>
+                                <div className='location'>
+                                    {spot.city}, {spot.state}
+                                </div>
                                 <div className='stars'>
                                     {spot.avgRating ? <><div className='rating'>{spot.avgRating}</div>
                                         <div className='icon'><i className="fa-solid fa-star fa-xs" style={{ color: 'black' }}></i>
                                         </div></> : <div>New!</div>}
                                 </div>
-                                <div className='location'>
-                                    {spot.city}, {spot.state}
                                 </div>
                                 <div className='price'>
                                     ${spot.price} night
@@ -46,10 +49,10 @@ export default function GetAllSpots() {
                             </div>
                         </div>
                     </div>
-                    </div>
                 )
             })}
-
+            </div>
+            </div>
 
         </>
     )

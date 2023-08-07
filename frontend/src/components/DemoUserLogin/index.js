@@ -1,17 +1,18 @@
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
-
-
+import './DemoUser.css'
+import { useModal } from "../../context/Modal";
 function DemoLoginButton() {
+    const {closeModal} =useModal()
     const dispatch = useDispatch();
     const credential= "Demo-lition"
     const password = "password"
     return (
         <>
-        <button onClick={(e)=>{
-            dispatch(sessionActions.login({ credential, password }))
+        <button className='demoButton' onClick={(e)=>{
+            dispatch(sessionActions.login({ credential, password})).then(closeModal)
             }
-            }>Log In DemoUser</button>
+            }>Demo Login</button>
         </>
     )
 }

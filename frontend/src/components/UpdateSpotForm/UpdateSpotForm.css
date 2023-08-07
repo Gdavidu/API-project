@@ -1,0 +1,7 @@
+.LastButtons{
+    width: 500px;
+}
+#greyedBtn{
+    background-color: grey;
+    color: aliceblue;
+}

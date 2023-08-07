@@ -1,41 +1,105 @@
+*{
+    font-family: cursive;
+    font-weight: bold;
+}
+a {
+    font-size: 15px;
+    color: #FF5A5F;
+}
+.createSpotLink{
+    position: relative;
+
+    left:9px;
+}
 .hidden {
     display: none
 }
 
 ul{
     list-style-type: none;
-    padding: 0px 10px 20px 10px;
     display:flex;
     align-items: center;
+    justify-content: center;
 }
 li{
-    margin:10px
+    margin:8px;
+    font-size: 15px;
 }
-a {
+.links{
     display: flex;
     flex-direction: column;
-    justify-content: top;
-    margin-bottom: 5px;
-}
 
+}
+ul{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+}
+.dropdown:hover{
+    cursor: pointer;
+}
 nav{
+    padding-bottom: 18px;
+    margin-bottom: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid gainsboro;
+    border-bottom: 3px solid gainsboro;
+    max-height: 300px;
+}
+.userDropdown{
+    position: absolute;
+    right:20px;
+    display:flex;
+}
+
+.notLoggedIn{
+    position: relative;
+    text-align: center;
+    right: 4px;
+
+}
+.loggedIn{
+    position: relative;
+    right:9px;
+    padding: 5px 0px;
+}
+.leftNav{
+    display: flex;
+    align-items: center;
 }
 .airbnbicon{
     margin:20px;
-    width: 60px;
-    height:60px;
+    width: 70px;
+    height:70px;
+
 }
 .logo{
     display: flex;
     align-items: center;
 }
+.logo:hover{
+    cursor: pointer;
+}
+.profileButton{
+    width: 70px;
+    border: 3px solid #FF5A5F;
+    border-radius: 15px;
+    background-color: transparent;
+
+}
 .appname{
     font-family:cursive;
-    font-weight:700;
-    color:#ff385c;
-    font-size:x-large;
+    font-weight:400;
+    color:#FF5A5F;
+    font-size:45px;
+}
+.profile-dropdown{
+    margin-top: 5px;
+    border: 3px solid #FF5A5F;
+    border-radius: 10px;
+    background-color: whitesmoke;
+    max-width: 140px;
+    z-index: 1;
 }

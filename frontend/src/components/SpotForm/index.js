@@ -54,14 +54,17 @@ export default function SpotForm() {
     // console.log(spot)
     return (
         <>
-            <form onSubmit={handleOnSubmit}>
+                <div className='formContainer'>
+            <form className='form' onSubmit={handleOnSubmit}>
                 <h1>Create a New Spot</h1>
                 <h3>{"Where's your place located?"}</h3>
                 <h4>Guests will only get your exact address once they booked a
                     reservation.
                 </h4>
-                <label>Country
+                <div className='bottomBorders'>
+                <label className='label'>Country
                     <input
+                    className='input'
                         type="text"
                         placeholder='Country'
                         value={country}
@@ -69,16 +72,18 @@ export default function SpotForm() {
                     ></input>
                     {errors.country && <div className='errors'>{errors.country}</div>}
                 </label>
-                <label>Street Address
+                <label className='label'>Street Address
                     <input type="text"
+                    className='input'
                         placeholder='Address'
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
                     ></input>
                 </label>
                 {errors.address && <div className='errors'>{errors.address}</div>}
-                <label>City
+                <label className='label'>City
                     <input
+                    className='input'
                         type="text"
                         placeholder='City'
                         value={city}
@@ -86,9 +91,10 @@ export default function SpotForm() {
                     ></input>
                 </label>
                 {errors.city && <div className='errors'>{errors.city}</div>}
-                <label>
+                <label className='label'>
                     State
                     <input
+                    className='input'
                         type="text"
                         placeholder='State'
                         value={state}
@@ -96,6 +102,7 @@ export default function SpotForm() {
                     ></input>
                 </label>
                 {errors.state && <div className='errors'>{errors.state}</div>}
+                </div>
                 {/* <label>
                     Latitude
                     <input
@@ -116,10 +123,12 @@ export default function SpotForm() {
                     ></input>
                     </label> */}
 
+    <div className='bottomBorders'>
                 <h3>Describe your place to guests</h3>
-                <label>Mention the best features of your space, any special amentities like
+                <label className='label'>Mention the best features of your space, any special amentities like
                     fast wifi or parking, and what you love about the neighborhood.
                     <input
+                    className='input'
                         type="text"
                         placeholder='Please write at least 30 characters'
                         value={description}
@@ -127,10 +136,13 @@ export default function SpotForm() {
                     ></input>
                     {errors.description && <div className='errors'>{errors.description}</div>}
                 </label>
+                </div>
+                <div className='bottomBorders'>
                 <h3>Create a title for your spot</h3>
-                <label>Catch guests' attention with a spot title that highlights what makes
+                <label className='label'>Catch guests' attention with a spot title that highlights what makes
                     your place special.
                     <input
+                    className='input'
                         type="text"
                         placeholder='Name of your spot'
                         value={name}
@@ -138,10 +150,13 @@ export default function SpotForm() {
                     ></input>
                 </label>
                 {errors.name && <div className='errors'>{errors.name}</div>}
+                </div>
+                <div className='bottomBorders'>
                 <h3>Set a base price for your spot</h3>
-                <label>Competitive pricing can help your listing stand out and rank higher
+                <label className='label'>Competitive pricing can help your listing stand out and rank higher
                     in search results
                     $ <input
+                    className='input'
                         type="price"
                         placeholder='Price per night (USD)'
                         value={price}
@@ -149,9 +164,12 @@ export default function SpotForm() {
                     ></input>
                 </label>
                 {errors.price && <div className='errors'>{errors.price}</div>}
+                </div>
+                <div className='bottomBorders'>
                 <h3>Liven up your spot with photos</h3>
-                <label>Submit a link to at least one photo to publish your spot.
+                <label className='label'>Submit a link to at least one photo to publish your spot.
                     <input
+                    className='input'
                         type="url"
                         placeholder='Preview Image URL'
                         value={url1}
@@ -159,41 +177,49 @@ export default function SpotForm() {
                     ></input>
                 </label>
                 {errors.previewImage && <div className='errors'>{errors.previewImage}</div>}
-                <label>
+                <label className='label'>
                     <input
+                    className='input'
                         type="url"
                         placeholder='Preview Image URL'
                         value={url2}
                         onChange={(e) => setUrl2(e.target.value)}
                     ></input>
                     </label>
-                    <label>
+                    <label className='label'>
                     <input
+                    className='input'
                         type="url"
                         placeholder='Preview Image URL'
                         value={url3}
                         onChange={(e) => setUrl3(e.target.value)}
                     ></input>
                     </label>
-                    <label>
+                    <label className='label'>
                     <input
+                    className='input'
                         type="url"
                         placeholder='Preview Image URL'
                         value={url4}
                         onChange={(e) => setUrl4(e.target.value)}
                     ></input>
                     </label>
-                    <label>
+                    <label className='label'>
                     <input
+                    className='input'
                         type="url"
                         placeholder='Preview Image URL'
                         value={url5}
                         onChange={(e) => setUrl5(e.target.value)}
                     ></input>
                 </label>
-                <button disabled={!country.length}>Create Spot</button>
+                </div>
+                <div className='btnContainer'>
+                <button id='createSpot'disabled={!description.length}>Create Spot</button>
+                </div>
                 {errors.loggedin && <div className='errors'>{errors.loggedin}</div>}
             </form>
+                </div>
         </>
     )
 }
