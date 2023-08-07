@@ -11,47 +11,47 @@ module.exports = {
     await queryInterface.bulkInsert(options, [
       {
         spotId: 1,
-        url: "https://asset.cloudinary.com/ddsopojwd/b90f9582ef8bc08a0591a2817d40d3cf",
+        url: <img src="https://a0.muscache.com/im/pictures/miso/Hosting-586898398649103226/original/9c689aaa-2364-4f1f-ae9c-d56bda466912.jpeg?im_w=1200"></img>,
         preview: true
       },
       {
         spotId: 1,
-        url: "https://asset.cloudinary.com/ddsopojwd/7a06bc7250df6b566bd3ec0ce6fc32e4",
+        url: <img src="https://a0.muscache.com/im/pictures/miso/Hosting-586898398649103226/original/9e6c2409-c192-4e1f-9c05-be4eb486051c.jpeg?im_w=720"></img>,
         preview: true
       },
       {
         spotId: 1,
-        url: "https://asset.cloudinary.com/ddsopojwd/7a06bc7250df6b566bd3ec0ce6fc32e4",
+        url: <img src="https://a0.muscache.com/im/pictures/miso/Hosting-586898398649103226/original/c6c5f145-42e4-48ba-aaaf-c1a15cd68ae4.jpeg?im_w=720"></img>,
         preview: true
       },
       {
         spotId: 1,
-        url: "https://asset.cloudinary.com/ddsopojwd/7a06bc7250df6b566bd3ec0ce6fc32e4",
+        url: <img src="https://a0.muscache.com/im/pictures/miso/Hosting-586898398649103226/original/06dd2926-c7d9-4846-8534-37fb0b5a8cd3.jpeg?im_w=1200"></img>,
         preview: true
       },
       {
         spotId: 1,
-        url: "https://asset.cloudinary.com/ddsopojwd/7a06bc7250df6b566bd3ec0ce6fc32e4",
+        url: <img src="https://a0.muscache.com/im/pictures/miso/Hosting-586898398649103226/original/75596971-c074-4259-9611-ba5663433f74.jpeg?im_w=720"></img>,
         preview: true
       },
       {
         spotId: 3,
-        url: "https://asset.cloudinary.com/ddsopojwd/fea2fe443c6a54a4afa81355e5990497",
+        url: <img src="https://a0.muscache.com/im/pictures/miso/Hosting-586898398649103226/original/0a8643e3-a2b3-41c8-bca9-9b7e8a00c9f5.jpeg?im_w=1200"></img>,
         preview: true
       },
       {
         spotId: 2,
-        url: "https://asset.cloudinary.com/ddsopojwd/35db176c6a94367fd4b657efe30dd075",
+        url: <img src="https://nationaltoday.com/wp-content/uploads/2022/08/27-McDonalds-Day-1200x834.jpg"></img>,
         preview: true
       },
       {
         spotId: 4,
-        url: "https://asset.cloudinary.com/ddsopojwd/4547ce4c4cb8b2c07810fd31afe497ff",
+        url: <img src="https://a0.muscache.com/im/pictures/prohost-api/Hosting-879012498547289208/original/e24abccc-fbd9-4b42-a8b6-7b57598c13fc.jpeg?im_w=720"></img>,
         preview: true
       },
       {
         spotId: 5,
-        url: "https://asset.cloudinary.com/ddsopojwd/005bf813609823b4b248b481610dcb21",
+        url: "https://a0.muscache.com/im/pictures/miso/Hosting-725313637421984377/original/cee1ce2a-a42b-41df-a206-8311a8af2924.jpeg?im_w=720",
         preview: true
       }
 
