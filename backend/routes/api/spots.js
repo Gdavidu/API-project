@@ -166,7 +166,7 @@ router.get(
                 stars += review.stars
                 counter += 1
             })
-            spot.avgRating = stars / counter
+            spot.avgRating = (stars / counter).toFixed(1)
             counter = 0
             stars = 0;
 
@@ -213,7 +213,7 @@ router.get('/current', requireAuth,
                 stars += review.stars
                 counter += 1
             })
-            spot.avgRating = stars / counter
+            spot.avgRating = (stars / counter).toFixed(1)
             counter = 0
             stars = 0;
 
@@ -258,7 +258,7 @@ router.get('/:id',
             stars += review.stars
             counter += 1
         })
-        payload.dataValues.avgRating = stars / counter
+        payload.dataValues.avgRating = (stars / counter).toFixed(1)
         payload.dataValues.numReviews = counter
         counter = 0
         stars = 0;
