@@ -166,7 +166,13 @@ router.get(
                 stars += review.stars
                 counter += 1
             })
-            spot.avgRating = (stars / counter).toFixed(1)
+            if(stars === 0){
+                spot.avgRating = 0
+            }
+            else{
+
+                spot.avgRating = (stars / counter).toFixed(1)
+            }
             counter = 0
             stars = 0;
 
@@ -213,7 +219,13 @@ router.get('/current', requireAuth,
                 stars += review.stars
                 counter += 1
             })
-            spot.avgRating = (stars / counter).toFixed(1)
+            if(stars === 0){
+                spot.avgRating = 0
+            }
+            else{
+
+                spot.avgRating = (stars / counter).toFixed(1)
+            }
             counter = 0
             stars = 0;
 
@@ -258,7 +270,14 @@ router.get('/:id',
             stars += review.stars
             counter += 1
         })
-        payload.dataValues.avgRating = (stars / counter).toFixed(1)
+        if(stars === 0){
+            payload.dataValues.avgRating = 0
+        }
+        else{
+
+            payload.dataValues.avgRating = (stars / counter).toFixed(1)
+        }
+    
         payload.dataValues.numReviews = counter
         counter = 0
         stars = 0;

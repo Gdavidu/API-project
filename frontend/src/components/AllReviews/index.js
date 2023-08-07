@@ -2,7 +2,8 @@ import { fetchSpotReviews } from "../../store/reviews";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-
+import DeleteReviewModal from "../DeleteReviewModal";
+import OpenModalButton from '../OpenModalButton';
 export default function GetAllSpotReviews({ spotId, reviewCount }) {
 
     const reviews = useSelector((state) => (state.reviews ? state.reviews : {}))
@@ -68,8 +69,11 @@ export default function GetAllSpotReviews({ spotId, reviewCount }) {
                     </div>
                 </div>
                 <div className="reviewText">
-                    {review.review}
+                    {review? review.review: null}
                 </div>
+                {sessionUser && review.User && review.User.id===sessionUser.id? <OpenModalButton
+                                        buttonText="Delete"
+                                        modalComponent={<DeleteReviewModal review={review}/>}/>: null }
             </div>
             )
 

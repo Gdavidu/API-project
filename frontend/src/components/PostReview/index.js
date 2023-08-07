@@ -25,7 +25,9 @@ export default function PostReview({ reviewCount }) {
 
     if (sessionUser && sessionUser.id === owner) return null
 
-    if (!sessionUser || reviewed) {
+    if (!sessionUser
+        || reviewed
+        ) {
         return null
     }
     return (
@@ -36,10 +38,7 @@ export default function PostReview({ reviewCount }) {
                 buttonText='Post Your Review'
                 modalComponent= {<ReviewFormModal/>}
             />
-            {/* <OpenModalButton
-                buttonText="Delete"
-                modalComponent={<DeleteSpotModal spot={spot} />}
-                /> */}
+          
         </div>
     )
 }

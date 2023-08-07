@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createSpot, fetchSpotDetail } from '../../store/spots';
 import './SpotForm.css'
 
@@ -24,9 +24,12 @@ export default function SpotForm() {
     const history = useHistory()
     const lat = 15;
     const lng = 14;
+    const sessionUser = useSelector(state => state.session.user)
     const handleOnSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
+
+        if(!sessionUser) return setErrors({loggedin: "You must be logged in to create a listing!"})
 
         if(description.length<30){
             return setErrors({description: "Description needs a minimum of 30 characters"})
@@ -189,6 +192,7 @@ export default function SpotForm() {
                     ></input>
                 </label>
                 <button disabled={!country.length}>Create Spot</button>
+                {errors.loggedin && <div className='errors'>{errors.loggedin}</div>}
             </form>
         </>
     )

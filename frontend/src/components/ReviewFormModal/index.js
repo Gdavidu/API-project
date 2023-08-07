@@ -2,14 +2,15 @@ import './ReviewForm.css'
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { postSpotReview } from '../../store/reviews';
+import { createReview } from '../../store/reviews';
 import { useModal } from '../../context/Modal';
 import { useParams } from 'react-router-dom'
 import { fetchSpotDetail } from '../../store/spots';
+import { fetchSpotReviews } from '../../store/reviews';
 function ReviewFormModal() {
     const { closeModal } = useModal();
     const spotId = useSelector(state => state.spots.singleSpot.id)
-    console.log('id from review form', spotId)
+    // console.log('id from review form', spotId)
     const dispatch = useDispatch()
     const [comment, setComment] = useState("")
     const [errors, setErrors] = useState({});
@@ -19,17 +20,20 @@ function ReviewFormModal() {
         e.preventDefault();
         setErrors({});
 
-        // const newReview ={review: comment, stars: rating}
-        // const sentReview = await dispatch(postSpotReview(newReview, spotId))
-        // console.log('errors', sentReview.errors)
-        // if (sentReview.errors) {
+        const newReview ={review: comment, stars: rating}
 
-        //     setErrors(sentReview.errors)
-        // }
-        // else{
-        //     await dispatch(fetchSpotDetail(spotId)).then(closeModal)
+            const sentReview = await dispatch(createReview(newReview, spotId))
 
-        // }
+
+        if (sentReview.errors) {
+            console.log('potential error catch ReviewFORMMODAL',sentReview.errors)
+            setErrors(sentReview.errors)
+        }
+        else{
+            await dispatch(fetchSpotReviews(spotId))
+            await dispatch(fetchSpotDetail(spotId)).then(closeModal)
+
+        }
     }
     return (
         <>
@@ -62,7 +66,7 @@ function ReviewFormModal() {
                 })}
                 <div>Stars</div>
             </div>
-            <button disabled={comment.length<10} onClick={handleSubmit}>Submit Your Review</button>
+            <button disabled={comment.length<10 || rating===0} onClick={handleSubmit}>Submit Your Review</button>
         </>
     )
 }
