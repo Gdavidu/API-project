@@ -1,7 +1,8 @@
 import { useModal } from '../../context/Modal';
-import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
 import { deleteReview } from '../../store/reviews';
 import { fetchSpotReviews } from '../../store/reviews';
+import { fetchSpotDetail } from '../../store/spots';
 function DeleteReviewModal({ review }) {
     const dispatch = useDispatch({review})
     const { closeModal } = useModal();
@@ -11,6 +12,7 @@ function DeleteReviewModal({ review }) {
         e.preventDefault();
         dispatch(deleteReview(reviewId)).then(closeModal);
         await dispatch(fetchSpotReviews(review.spotId))
+        await dispatch(fetchSpotDetail(review.spotId))
     }
     return (
         <>
